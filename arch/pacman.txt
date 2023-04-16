@@ -1,0 +1,13 @@
+bat
+fd
+fish
+fzf
+git
+man-db
+man-pages
+neovim
+openssh
+pciutils
+python
+python-pip
+speedtest-cli

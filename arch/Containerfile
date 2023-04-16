@@ -1,0 +1,28 @@
+FROM docker.io/library/archlinux:base-devel
+
+# Add files
+ADD pacman.txt aur.txt /tmp/
+
+# Install pacman packages
+RUN pacman --noconfirm -Syu && \
+	pacman --noconfirm -S - < /tmp/pacman.txt
+
+# Add user
+ARG user=builder
+RUN useradd --system --create-home $user && \
+	echo "$user ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/$user
+USER $user
+
+# Install paru
+RUN git clone https://aur.archlinux.org/paru-bin.git /tmp/paru && \
+	cd /tmp/paru && \
+	makepkg --noconfirm -sri
+
+# Install AUR packages
+RUN paru --noconfirm --removemake --cleanafter -S $(cat /tmp/aur.txt)
+
+# Clean
+USER root
+RUN userdel -r $user && \
+	rm -rf /etc/sudoers.d/$user /tmp/*
+
