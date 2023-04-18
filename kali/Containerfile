@@ -1,0 +1,37 @@
+FROM docker.io/kalilinux/kali-rolling:latest
+ARG USERNAME
+ARG UID
+ARG GID
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Add files
+ADD apt.txt pip.txt gem.txt /tmp/
+
+# Add 32-bit support
+RUN dpkg --add-architecture i386
+
+# Install apt packages
+RUN apt update && \
+	apt install -y $(sed 's: #.*$::g' /tmp/apt.txt | tr '\n' ' ')
+
+# Install pip modules
+RUN pip install -r /tmp/pip.txt
+
+# Install gems
+RUN gem install $(sed 's: #.*$::g' /tmp/gem.txt | tr '\n' ' ')
+
+# Install pwndbg
+RUN cd / && \
+	git clone https://github.com/pwndbg/pwndbg && \
+	cd pwndbg && \
+	./setup.sh
+
+# Clean
+RUN apt autoremove -y --purge && \
+	apt clean && \
+	rm -rf ~/.cache/ /tmp/*
+
+# User angr environment
+RUN useradd --no-create-home --uid $UID --gid $GID $USERNAME
+USER $USERNAME
+RUN fish -c "vf install" && fish -c "vf new angr && pip install angr black pwn"

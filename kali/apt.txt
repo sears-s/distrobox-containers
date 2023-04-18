@@ -1,0 +1,12 @@
+fish
+kali-linux-large
+lib32z1 # 32-bit support
+libc6-dbg:i386 # 32-bit support
+libc6:i386 # 32-bit support
+libglib2.0-dev # pwndbg
+libncurses5:i386 # 32-bit support
+libstdc++6:i386 # 32-bit support
+ltrace
+neovim
+podman
+strace
