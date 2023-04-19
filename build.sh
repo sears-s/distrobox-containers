@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Must have 1 argument
+# Must have at least 1 argument
 if [ $# -eq 0 ]; then
     >&2 echo "Provide container directory name as argument"
     exit 1
@@ -14,9 +14,11 @@ CONTAINER_DIR=$SCRIPT_DIR/$1
 distrobox stop -r -Y $1
 distrobox rm -r -Y $1
 
-# Build the image
-sudo podman build --pull=newer -t $CONTAINER_NAME $CONTAINER_DIR || exit 1 
-sudo podman image prune -f
+# Build the image if asked
+if [ $# -eq 2 ] && [ $2 == "build" ]; then
+	sudo podman build --pull=newer -t $CONTAINER_NAME $CONTAINER_DIR || exit 1 
+	sudo podman image prune -f
+fi
 
 # Setup the home directory
 mkdir -p $CONTAINER/home
