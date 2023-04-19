@@ -1,13 +1,14 @@
-bat
-fd
+bat # fzf.fish
+fd # fzf.fish
 fish
-fzf
+fzf # fzf.fish
 git
 man-db
 man-pages
 neovim
 openssh
 pciutils
+podman
 python
 python-pip
 speedtest-cli

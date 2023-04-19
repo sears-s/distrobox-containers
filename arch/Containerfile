@@ -5,7 +5,7 @@ ADD pacman.txt aur.txt /tmp/
 
 # Install pacman packages
 RUN pacman --noconfirm -Syu && \
-	pacman --noconfirm -S - < /tmp/pacman.txt
+	pacman --noconfirm -S $(sed 's: #.*$::g' /tmp/pacman.txt | tr '\n' ' ')
 
 # Add user
 ARG user=builder
@@ -19,7 +19,7 @@ RUN git clone https://aur.archlinux.org/paru-bin.git /tmp/paru && \
 	makepkg --noconfirm -sri
 
 # Install AUR packages
-RUN paru --noconfirm --removemake --cleanafter -S $(cat /tmp/aur.txt)
+RUN paru --noconfirm --removemake --cleanafter -S $(sed 's: #.*$::g' /tmp/aur.txt | tr '\n' ' ')
 
 # Clean
 USER root

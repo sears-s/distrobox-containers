@@ -1,5 +1,5 @@
 fish
-kali-linux-large
+kali-linux-default
 lib32z1 # 32-bit support
 libc6-dbg:i386 # 32-bit support
 libc6:i386 # 32-bit support
