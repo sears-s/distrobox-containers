@@ -1,7 +1,4 @@
 FROM docker.io/kalilinux/kali-rolling:latest
-ARG USERNAME
-ARG UID
-ARG GID
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Add files
@@ -31,7 +28,3 @@ RUN apt autoremove -y --purge && \
 	apt clean && \
 	rm -rf ~/.cache/ /tmp/*
 
-# User angr environment
-RUN useradd --no-create-home --uid $UID --gid $GID $USERNAME
-USER $USERNAME
-RUN fish -c "vf install" && fish -c "vf new angr && pip install angr black pwn"

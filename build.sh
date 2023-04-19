@@ -15,11 +15,7 @@ distrobox stop -r -Y $1
 distrobox rm -r -Y $1
 
 # Build the image
-sudo podman build --pull=newer --no-cache -t $CONTAINER_NAME \
-	--build-arg USERNAME=$(whoami) \
-	--build-arg UID=$(id -u) \
-	--build-arg GID=$(id -g) \
-	$CONTAINER_DIR || exit 1 
+sudo podman build --pull=newer -t $CONTAINER_NAME $CONTAINER_DIR || exit 1 
 sudo podman image prune -f
 
 # Setup the home directory
