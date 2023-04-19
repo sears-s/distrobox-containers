@@ -4,8 +4,7 @@ FROM docker.io/library/archlinux:base-devel
 ADD pacman.txt aur.txt /tmp/
 
 # Install pacman packages
-RUN pacman --noconfirm -Syu && \
-	pacman --noconfirm -S $(sed 's: #.*$::g' /tmp/pacman.txt | tr '\n' ' ')
+RUN pacman --noconfirm -Sy $(sed 's: #.*$::g' /tmp/pacman.txt | tr '\n' ' ')
 
 # Add user
 ARG user=builder
