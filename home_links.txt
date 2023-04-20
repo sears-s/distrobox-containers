@@ -1,3 +1,5 @@
+.config/atuin
 .config/fish
 .gitconfig
+.local/share/atuin
 .ssh
