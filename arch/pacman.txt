@@ -11,4 +11,5 @@ pciutils
 podman
 python
 python-pip
+ripgrep
 speedtest-cli

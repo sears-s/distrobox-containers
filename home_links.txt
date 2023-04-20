@@ -1,5 +1,6 @@
 .config/atuin
 .config/fish
+.config/ripgrep
 .gitconfig
 .local/share/atuin
 .ssh

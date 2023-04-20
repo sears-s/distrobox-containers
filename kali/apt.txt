@@ -10,4 +10,5 @@ libstdc++6:i386 # 32-bit support
 ltrace
 neovim
 podman
+ripgrep
 strace
