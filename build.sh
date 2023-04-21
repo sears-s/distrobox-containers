@@ -28,7 +28,7 @@ if [ $# -eq 2 ] && [ $2 == "build" ]; then
 	fi
 
 	# Build
-	sudo $container_cmd build --pull -t $CONTAINER_NAME $CONTAINER_DIR || exit 1
+	sudo $container_cmd build --pull -f $CONTAINER_DIR/Containerfile -t $CONTAINER_NAME $CONTAINER_DIR || exit 1
 	sudo $container_cmd image prune -f
 fi
 
