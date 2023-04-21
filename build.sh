@@ -16,8 +16,20 @@ distrobox rm -r -Y $1
 
 # Build the image if asked
 if [ $# -eq 2 ] && [ $2 == "build" ]; then
-	sudo podman build --pull=newer -t $CONTAINER_NAME $CONTAINER_DIR || exit 1 
-	sudo podman image prune -f
+
+	# Figure out container command
+	if command -v podman > /dev/null; then
+		container_cmd="podman"
+	elif command -v docker > /dev/null; then
+		container_cmd="docker"
+	else
+		>&2 echo "No container command found"
+		exit 1
+	fi
+
+	# Build
+	sudo $container_cmd build --pull=newer -t $CONTAINER_NAME $CONTAINER_DIR || exit 1
+	sudo $container_cmd image prune -f
 fi
 
 # Setup the home directory
