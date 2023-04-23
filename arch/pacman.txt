@@ -1,8 +1,11 @@
 bat # fzf.fish
+dua-cli
+exa
 fd # fzf.fish
 fish
 fzf # fzf.fish
 git
+glow
 man-db
 man-pages
 neovim
@@ -13,3 +16,4 @@ python
 python-pip
 ripgrep
 speedtest-cli
+zoxide

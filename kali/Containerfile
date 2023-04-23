@@ -23,6 +23,9 @@ RUN cd / && \
 	cd pwndbg && \
 	./setup.sh
 
+# Fix bat path
+RUN ln -s /usr/bin/batcat /usr/bin/bat
+
 # Clean
 RUN apt autoremove -y --purge && \
 	apt clean && \

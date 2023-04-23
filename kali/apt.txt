@@ -1,5 +1,9 @@
+bat # fzf.fish
+exa
+fd-find # fzf.fish
 fish
 foot-terminfo
+fzf # fzf.fish
 kali-linux-default
 lib32z1 # 32-bit support
 libc6-dbg:i386 # 32-bit support
@@ -12,3 +16,4 @@ neovim
 podman
 ripgrep
 strace
+zoxide

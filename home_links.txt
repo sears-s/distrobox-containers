@@ -3,4 +3,5 @@
 .config/ripgrep
 .gitconfig
 .local/share/atuin
+.local/share/zoxide
 .ssh
