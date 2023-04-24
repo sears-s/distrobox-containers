@@ -5,3 +5,4 @@
 .local/share/atuin
 .local/share/zoxide
 .ssh
+.terminfo

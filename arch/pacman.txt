@@ -1,14 +1,19 @@
 bat # fzf.fish
+bottom
 dua-cli
 exa
 fd # fzf.fish
 fish
 fzf # fzf.fish
+gdu
 git
 glow
+lazygit
 man-db
 man-pages
 neovim
+nodejs
+npm
 openssh
 pciutils
 podman
