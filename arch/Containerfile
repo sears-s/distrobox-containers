@@ -1,10 +1,23 @@
 FROM docker.io/library/archlinux:base-devel
+ARG GDB_DIR=/opt/gdb/
 
 # Add files
 ADD pacman.txt aur.txt /tmp/
 
 # Install pacman packages
 RUN pacman --noconfirm -Sy $(sed 's: #.*$::g' /tmp/pacman.txt | tr '\n' ' ')
+
+# Install pwndbg and GEF with extras
+# Install pwndbg before GEF extras due to PIP conflicts
+RUN mkdir -p $GDB_DIR && \
+        cd $GDB_DIR && \
+        git clone https://github.com/pwndbg/pwndbg && \
+        cd pwndbg && \
+        ./setup.sh && \
+	cd .. && \
+        git clone --branch main https://github.com/hugsy/gef && \
+        git clone --branch dev https://github.com/hugsy/gef-extras && \
+        pip install -r gef-extras/requirements.txt
 
 # Add user
 ARG user=builder
@@ -23,5 +36,5 @@ RUN paru --noconfirm --removemake --cleanafter -S $(sed 's: #.*$::g' /tmp/aur.tx
 # Clean
 USER root
 RUN userdel -r $user && \
-	rm -rf /etc/sudoers.d/$user /tmp/*
+	rm -rf /etc/sudoers.d/$user /tmp/*  /root/{,.[!.],..?}*
 

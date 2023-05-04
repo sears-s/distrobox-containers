@@ -1,6 +1,8 @@
 .config/atuin
 .config/fish
 .config/ripgrep
+.gdbinit
+.gef.rc
 .gitconfig
 .local/share/atuin
 .local/share/zoxide

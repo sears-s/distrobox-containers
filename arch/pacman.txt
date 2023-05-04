@@ -1,10 +1,13 @@
 bat # fzf.fish
 bottom
+docker
+docker-compose
 dua-cli
 exa
 fd # fzf.fish
 fish
 fzf # fzf.fish
+gdb
 gdu
 git
 glow

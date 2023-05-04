@@ -1,5 +1,6 @@
 FROM docker.io/kalilinux/kali-rolling:latest
 ARG DEBIAN_FRONTEND=noninteractive
+ARG GDB_DIR=/opt/gdb/
 
 # Add files
 ADD apt.txt pip.txt gem.txt /tmp/
@@ -17,11 +18,17 @@ RUN pip install -r /tmp/pip.txt
 # Install gems
 RUN gem install $(sed 's: #.*$::g' /tmp/gem.txt | tr '\n' ' ')
 
-# Install pwndbg
-RUN cd / && \
-	git clone https://github.com/pwndbg/pwndbg && \
-	cd pwndbg && \
-	./setup.sh
+# Install pwndbg and GEF with extras
+# Install pwndbg before GEF extras due to PIP conflicts
+RUN mkdir -p $GDB_DIR && \
+        cd $GDB_DIR && \
+        git clone https://github.com/pwndbg/pwndbg && \
+        cd pwndbg && \
+        ./setup.sh && \
+        cd .. && \
+        git clone --branch main https://github.com/hugsy/gef && \
+        git clone --branch dev https://github.com/hugsy/gef-extras && \
+        pip install -r gef-extras/requirements.txt
 
 # Fix bat path
 RUN ln -s /usr/bin/batcat /usr/bin/bat
@@ -29,5 +36,5 @@ RUN ln -s /usr/bin/batcat /usr/bin/bat
 # Clean
 RUN apt autoremove -y --purge && \
 	apt clean && \
-	rm -rf ~/.cache/ /tmp/*
+	rm -rf /tmp/* /root/{,.[!.],..?}*
 
